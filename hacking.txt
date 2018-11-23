@@ -1,0 +1,44 @@
+<html>
+ <head>
+  <style>
+   * {
+      margin: 0;
+      padding: 0; 
+   }
+   body {background-color: #000;}
+   canvas {display: block;}
+  </style>
+ </head>
+ <body>
+  <canvas id="c"></canvas>
+  <script>
+   var c = document.getElementById("c");
+   var _d = c.getContext("2d");
+   c.height = window.innerHeight;
+   c.width = window.innerWidth;
+   var chinese = "1234568790hgsk964136788754214689641156ubcx8534781895pqlaskfbzjsk";
+   chinese = chinese.split("");
+   var font_size = 10;
+   var columns = c.width/font_size;
+   var drops = [];
+   for (var x = 0; x < columns; x++) {
+    drops[x] = 1;
+   }
+   function rain() {
+    _d.fillStyle = "rgba(0, 0, 0, 0.05)";
+    _d.fillRect(0, 0, c.width, c.height);
+    _d.fillStyle = "#0F0";
+    _d.font = font_size + "px arial";
+    for(var i = 0; i < drops.length; i++) {
+       var text = chinese[Math.floor(Math.random()*chinese.length)];
+      _d.fillText(text, i*font_size, drops[i]*font_size);
+      if(drops[i]*font_size > c.height && Math.random() > 0.975) {
+      drops[i] = 0;
+     }
+      drops[i]++;
+      }
+   }
+   setInterval(rain, 40);
+  </script>
+ </body>
+</html>
